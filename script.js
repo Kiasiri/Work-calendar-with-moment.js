@@ -3,11 +3,50 @@ var saveBtn = $(".saveBtn");
 var eventInfo = $(".event-info");
 
 setInterval(liveClock, 1000);
+setTextBoxColor();
 loadText();
 
 function liveClock() {
   const current = moment();
   $("#currentDay").text(current.format("dddd, MMM Do, YYYY, h:mm:ss a"));
+}
+function setTextBoxColor() {
+  let count;
+  let i;
+  let countText;
+  let time = new Date().getHours();
+  for (i = 9; i <= 12; i++) {
+    if (i === 12) {
+      count = i.toString() + "pm";
+    } else {
+      count = i.toString() + "am";
+    }
+    countText = count + "Text";
+
+    if (i < time) {
+      $("#" + countText).addClass("past");
+    } else if (i === time) {
+      $("#" + countText).addClass("present");
+    } else {
+      $("#" + countText).addClass("future");
+    }
+  }
+
+  for (i = 1; i <= 5; i++) {
+    count = i.toString() + "pm";
+    countText = count + "Text";
+
+    if (time > 12) {
+      time = time - 12;
+    }
+    if (i < time) {
+      $("#" + countText).addClass("past");
+    } else if (i === time) {
+      $("#" + countText).addClass("present");
+    } else {
+      $("#" + countText).addClass("future");
+    }
+  }
 }
 
 function loadText() {
