@@ -36,7 +36,7 @@ function setTextBoxColor() {
     count = i.toString() + "pm";
     countText = count + "Text";
 
-    if (time > 12) {
+    if ((time = 12)) {
       time = time - 12;
     }
     if (i < time) {
