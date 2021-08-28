@@ -5,11 +5,15 @@ var eventInfo = $(".event-info");
 setInterval(liveClock, 1000);
 setTextBoxColor();
 loadText();
-
+//live clock() is a live updating clock using momentjs and set interval
 function liveClock() {
   const current = moment();
   $("#currentDay").text(current.format("dddd, MMM Do, YYYY, h:mm:ss a"));
 }
+//setTextBoxColor takes current time and checks it against count which is 9-12 and 1-5
+//it canacatanates am or pm appropriatly it loops through the am hours 12noon and the pm hours seperately
+//making relative countText values and then use that to get a handle by id to apply future,present/past classes.
+//
 function setTextBoxColor() {
   let count;
   let i;
@@ -36,7 +40,7 @@ function setTextBoxColor() {
     count = i.toString() + "pm";
     countText = count + "Text";
 
-    if ((time = 12)) {
+    if (time > 12) {
       time = time - 12;
     }
     if (i < time) {
@@ -48,7 +52,9 @@ function setTextBoxColor() {
     }
   }
 }
-
+//loadText() gets from localstorage getting the key by concatinating am or pm to i in a loop
+//12pm is done individually
+//this is then put in sibling textarea of each save button
 function loadText() {
   let i;
   let count;
@@ -68,7 +74,7 @@ function loadText() {
     $("#" + count + "Text").val(textBoxValue);
   }
 }
-
+//saves the content of the textarea next to each button into its own key value pair in local sotrage
 saveBtn.on("click", function () {
   const input = $($(this).prev()[0]).val();
   console.log(input);
